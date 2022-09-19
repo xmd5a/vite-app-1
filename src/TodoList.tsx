@@ -1,10 +1,13 @@
+import { Box } from "@mui/material";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
-import { getUsers, postUser, UserPayload } from "./api";
+import { getUsers, postUser } from "./api";
+import { DataTable } from "./DataTable";
+import { UserPayload, UsersResponse } from "./types";
 
 const TodoList = () => {
   const client = useQueryClient();
-  const query = useQuery(["users"], getUsers);
+  const { data, isLoading } = useQuery<UsersResponse>(["users"], getUsers);
   const { mutate } = useMutation(
     ({ name, surname, email }: UserPayload) =>
       postUser({ name, surname, email }),
@@ -15,7 +18,11 @@ const TodoList = () => {
     }
   );
 
-  return <div>todolist</div>;
+  return (
+    <Box sx={{ width: 700 }}>
+      <DataTable isLoading={isLoading} data={data} />
+    </Box>
+  );
 };
 
 export { TodoList };
