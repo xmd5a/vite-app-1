@@ -3,6 +3,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { getUsers, postUser } from "./api";
 import { DataTable } from "./DataTable";
+import { Form } from "./Form";
 import { UserPayload, UsersResponse } from "./types";
 
 const TodoList = () => {
@@ -20,6 +21,7 @@ const TodoList = () => {
 
   return (
     <Box sx={{ width: 700 }}>
+      <Form onSubmit={mutate} />
       <DataTable isLoading={isLoading} data={data} />
     </Box>
   );

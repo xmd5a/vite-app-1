@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UserPayload } from "./types";
 
-const API_URL = "https://63287396cc4c264fdedbade0.mockapi.io/";
+const API_URL = "http://localhost:4000";
 
 const getUsers = () =>
   axios.get(`${API_URL}/users`).then((response) => response.data);
