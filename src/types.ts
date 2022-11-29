@@ -1,9 +1,8 @@
-type UserPayload = {
-  name: string;
-  surname: string;
-  email: string;
+type ImagePayload = {
+  title: string;
+  image: string;
 };
 
-type UsersResponse = Array<UserPayload>;
+type ImageResponse = ImagePayload & { imageId: string };
 
-export { UserPayload, UsersResponse };
+export { ImagePayload, ImageResponse };

@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { useInput } from "./useInput";
 
@@ -7,30 +7,24 @@ type FormProps = {
 };
 
 const Form = ({ onSubmit }: FormProps) => {
+  const imageRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    nameValue &&
-      surnameValue &&
-      emailValue &&
-      onSubmit({ name: nameValue, surname: surnameValue, email: emailValue });
+    if (!titleValue || !imageRef.current?.value) {
+      return false;
+    }
 
-    resetName();
-    resetSurname();
-    resetEmail();
+    const formData = new FormData();
+    formData.append("title", titleValue);
+    formData.append("image", imageRef.current.value);
+
+    titleValue && onSubmit(formData);
+    resetTitle();
   };
 
-  const { input: Name, value: nameValue, reset: resetName } = useInput("Name");
-  const {
-    input: Surname,
-    value: surnameValue,
-    reset: resetSurname,
-  } = useInput("Surname");
-  const {
-    input: Email,
-    value: emailValue,
-    reset: resetEmail,
-  } = useInput("Email");
+  const { input, value: titleValue, reset: resetTitle } = useInput("title");
 
   return (
     <Box
@@ -43,9 +37,8 @@ const Form = ({ onSubmit }: FormProps) => {
       onSubmit={handleSubmit}
     >
       <div>
-        {Name}
-        {Surname}
-        {Email}
+        {input}
+        <input type="file" ref={imageRef} />
         <Button
           sx={{
             mt: 1,

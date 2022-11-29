@@ -1,12 +1,21 @@
 import axios from "axios";
-import { UserPayload } from "./types";
+import { ImagePayload } from "./types";
 
 const API_URL = "/api";
 
-const getUsers = () =>
-  axios.get(`${API_URL}/users`).then((response) => response.data);
+const getImages = () => {
+  return axios.get(`${API_URL}/images`).then((response) => response.data);
+};
 
-const postUser = ({ name, surname, email }: UserPayload) =>
-  axios.post(`${API_URL}/users`, { name: name, surname: surname, email });
+const getImage = (imageId: string) =>
+  axios.get(`${API_URL}/image/${imageId}`).then((response) => response.data);
 
-export { getUsers, postUser };
+const postImage = (data: ImagePayload) =>
+  axios({
+    method: "post",
+    url: `${API_URL}/image`,
+    data,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+export { getImages, getImage, postImage };

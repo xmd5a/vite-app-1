@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StyledEngineProvider } from "@mui/material/styles";
 
 import "./App.css";
-import { TodoList } from "./TodoList";
+import { TodoList } from "./ImagesList";
 
 const queryClient = new QueryClient();
 

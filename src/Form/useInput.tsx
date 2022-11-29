@@ -10,11 +10,10 @@ const useInput = (label: string) => {
   return {
     input: (
       <TextField
-        sx={{ width: "22%", mr: 1 }}
+        sx={{ width: "40%", mr: 1 }}
         required
         id="outlined-required"
         label={label}
-        defaultValue=""
         onChange={handleOnChange}
         value={value}
       />
