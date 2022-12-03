@@ -6,6 +6,8 @@ import { DataTable } from "../DataTable/DataTable";
 import { Form } from "../Form";
 import { ImagePayload, ImageResponse } from "../types";
 
+const APP_VERSION = import.meta.env.VITE_APP_VERSION;
+
 const TodoList = () => {
   const client = useQueryClient();
   const { data, isLoading } = useQuery<Array<ImageResponse>>(
@@ -20,6 +22,8 @@ const TodoList = () => {
 
   return (
     <Box sx={{ width: 700 }}>
+      <h3>App version: {APP_VERSION}</h3>
+      <hr />
       <Form onSubmit={mutate} />
       <DataTable isLoading={isLoading} data={data} />
     </Box>
