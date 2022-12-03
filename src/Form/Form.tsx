@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { useInput } from "./useInput";
 
@@ -7,18 +7,22 @@ type FormProps = {
 };
 
 const Form = ({ onSubmit }: FormProps) => {
-  const imageRef = useRef<HTMLInputElement>(null);
-
+  const [image, setImage] = useState<File>();
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      setImage(e.target.files[0]);
+    }
+  };
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!titleValue || !imageRef.current?.value) {
+    if (!titleValue || !image) {
       return false;
     }
 
     const formData = new FormData();
     formData.append("title", titleValue);
-    formData.append("image", imageRef.current.value);
+    formData.append("image", image);
 
     titleValue && onSubmit(formData);
     resetTitle();
@@ -38,7 +42,7 @@ const Form = ({ onSubmit }: FormProps) => {
     >
       <div>
         {input}
-        <input type="file" ref={imageRef} />
+        <input type="file" onChange={handleImageChange} />
         <Button
           sx={{
             mt: 1,

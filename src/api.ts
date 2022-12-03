@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ImagePayload } from "./types";
 
-const API_URL = "/api";
+const API_URL = "http://localhost:4001/api";
 
 const getImages = () => {
   return axios.get(`${API_URL}/images`).then((response) => response.data);
