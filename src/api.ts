@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ImagePayload } from "./types";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL + "/api";
 
 const getImages = () => {
   return axios.get(`${API_URL}/images`).then((response) => response.data);
